@@ -2,8 +2,9 @@
 #define _FIT_COLLECTBALL_QD_HPP
 
 #include <sferes/fit/fitness.hpp>
-#include <exp/collectball/fit_collectball.hpp>
 #include <exp/modular_QD/fit_qd.hpp>
+
+#include "fit_collectball.hpp"
 
 extern std::string res_dir;
 
