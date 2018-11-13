@@ -100,37 +100,9 @@ def build(bld):
             'ARCHIVE TOURFITNESS','ARCHIVE TOURNOVELTY','ARCHIVE TOURCURIOSITY']
 
      sferes.create_variants(bld,
-                            source = 'scenarii/scenario_arm.cpp',
-                            use = 'sferes2 robot',
-                            includes='. .. ../../ ./scenarii/',
-                            uselib = libs,
-                            target = 'scenario_arm',
-                            variants = varts)
-
-     sferes.create_variants(bld,
                             source = 'scenarii/collectball/scenario_collectball.cpp',
                             use = 'sferes2 fastsim',
                             uselib =  'EIGEN SDL BOOST BOOST_GRAPH TBB SFERES2 FASTSIM NN2',
                             target = 'collect',
                             cxxflags = bld.get_env()['CXXFLAGS'] + ['-Wno-unknown-pragmas'],
                             variants = varts)
- 
-     
-
-     #if(conf.env.DEFINES_ROBDYN == 'USE_ROBDYN'):
-         #sferes.create_variants(bld,
-                                #source = 'scenarii/scenario_hexa_turn.cpp',
-                                #use = 'sferes2',
-                                #uselib = libs,
-                                #target = 'scenario_hexa_turn',
-                                #variants = varts)
-         
-         #sferes.create_variants(bld,
-                                #source = 'scenarii/scenario_hexa_walk.cpp',
-                                #use = 'sferes2',
-                                #uselib = libs,
-                                #target = 'scenario_hexa_walk',
-                                #variants = varts) 
- 
- 
- 
