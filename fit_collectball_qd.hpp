@@ -57,8 +57,10 @@ namespace sferes
             float _sqr(float x) const { return x * x; }
             std::vector<float> _genotype;
 
+        public:
+
 #else
-    # error "[fit_collectball_qd.hpp] - Unknown Fitness (Not DNN or Elman)"
+    # error "[fit_collectball_qd.hpp] - Unknown Fitness"
 #endif
 
             // *************** _eval ************
@@ -77,7 +79,6 @@ namespace sferes
                     // Init of the number of fitness objectives
                     this->_objs.resize(nb_fit);
                     inputs.resize(Params::dnn::nb_inputs);
-
 
                     watch=true;
 
@@ -153,6 +154,7 @@ namespace sferes
                         }
                     }
 #endif
+
 
                     // Update objectives
                     unsigned int i;

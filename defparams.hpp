@@ -211,7 +211,7 @@ struct Params
     typedef FitCollectBallQD<Params> fit_t;
 
 #ifndef SAMPLEDPARAMS
-    typedef gen::EvoFloat<nn::elman::Count<Params::dnn::nb_inputs, Params::elman::nb_hidden, Params::dnn::nb_outputs>::nb_params, Params> gen_t;
+        typedef gen::EvoFloat<nn::elman::Count<Params::dnn::nb_inputs, Params::elman::nb_hidden, Params::dnn::nb_outputs>::nb_params, Params> gen_t;
 #else
         typedef gen::Sampled<nn::elman::Count<Params::dnn::nb_inputs, Params::elman::nb_hidden, Params::dnn::nb_outputs>::nb_params, Params> gen_t;
 #endif

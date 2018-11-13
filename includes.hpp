@@ -15,8 +15,10 @@
     #define DIV_BEHAVIOR
 #endif
 
+#define ELMAN 
+
 #if !defined(ELMAN)
-    #define ELMAN 
+    #define DNN
 #endif
 
 enum diversity_measure_t {multi=-1,adhoc=0,hamming,trajectory,entropy,nb_measures};
@@ -24,12 +26,12 @@ enum diversity_measure_t {multi=-1,adhoc=0,hamming,trajectory,entropy,nb_measure
 typedef enum _fit_id{
     ballcount
 #ifdef DIV_BEHAVIOR
-        ,div_behavior
+    ,div_behavior
 #endif 
 #ifdef NOV_BEHAVIOR
-        ,nov_behavior
+    ,nov_behavior
 #endif
-        ,nb_fit
+    ,nb_fit
 } Fit_id;
 
 #if !defined(ADHOC) && !defined(HAMMING) && !defined(TRAJECTORY) && !defined(ENTROPY) && !defined(MULTIDIST) 
@@ -76,11 +78,8 @@ typedef enum _fit_id{
 #include <modules/nn2/mlp.hpp>
 #include <modules/nn2/phen_dnn.hpp>
 #include <modules/nn2/elman.hpp>
-//#include <modules/nn2/esn_2.hpp>
-//#include "phen_dnn.hpp"
 
 #include <sferes/run.hpp>
-//#include <sferes/ctrl.hpp>
 #include <sferes/stc.hpp>
 #include <sferes/misc.hpp>
 
@@ -92,7 +91,6 @@ typedef enum _fit_id{
 
 #include <sferes/fit/fitness.hpp>
 #include <sferes/modif/dummy.hpp>
-//#include "modifier_filiation.hpp"
 #include <sferes/eval/parallel.hpp>
 #include <sferes/eval/eval.hpp>
 #include <sferes/stat/pareto_front.hpp>

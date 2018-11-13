@@ -1,7 +1,7 @@
 #include "includes.hpp"             // Sferes & other includes -- SEE THIS FILE FOR PROGRAM VARIANTS
-                                    // also include entropy_distance.hpp
-                                    //              edit_distance.hpp
-                                    //              modifier_behavior.hpp
+// also include entropy_distance.hpp
+//              edit_distance.hpp
+//              modifier_behavior.hpp
 #include "defparams.hpp"            // Params
 #include "defstats.hpp"             // Define all stats
 #include "definitsimu.hpp"          // Simulation initialization
@@ -11,14 +11,36 @@ std::string res_dir="not_initialized";
 // ****************** Main *************************
 int main(int argc, char **argv)
 {
-    srand(time(NULL));
-    tbb::task_scheduler_init init(20);  
+    srand(time(0));
 
     using namespace sferes;
 
     typedef eval::Parallel<Params> eval_t;
 
-    typedef modif::Dummy<> modifier_t;
+    // STATS 
+    typedef boost::fusion::vector<
+        stat::Container<phen_t, Params>
+#ifdef FILIATION
+        ,stat::Filiation<phen_t, Params>
+#endif
+        ,stat::BestFitVal<phen_t, Params>
+#ifdef TRACELOG
+        ,stat::TraceLog<phen_t, Params>
+#endif
+        >  stat_t;
+
+   
+    //MODIFIER
+    typedef boost::fusion::vector<
+#if defined (DYNAMIC_DIVERSITY) || defined(DIV_BEHAVIOR)
+        modif::Modifier_DD<Params>
+#elif defined(NOV_BEHAVIOR) 
+        modif::BehaviorNov<Params>  
+#else
+        modif::Dummy<Params>
+#endif
+        > modifier_t;
+
 
 #if defined(GRID)
     typedef container::Grid<phen_t, Params> container_t;
@@ -26,7 +48,6 @@ int main(int argc, char **argv)
     typedef container::Archive<phen_t, Params> container_t;
 #endif
 
-    typedef boost::fusion::vector<stat::Container<phen_t, Params>,stat::Progress<phen_t, Params> > stat_t;
 
 #if defined(RANDOM)
     typedef selector::Random<phen_t> select_t;
