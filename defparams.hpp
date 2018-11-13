@@ -135,8 +135,8 @@ struct Params
         //Evalutations
         static constexpr float nb_steps = 12000;
 
-        SFERES_STRING(map_name, SFERES_ROOT "/exp/collectball/arena2.pbm");
-        SFERES_STRING(alt_map_name, SFERES_ROOT "/exp/collectball/arena2b.pbm");
+        SFERES_STRING(map_name, SFERES_ROOT "/exp/modular_QD/scenarii/collectball/arena2.pbm");
+        SFERES_STRING(alt_map_name, SFERES_ROOT "/exp/modular_QD/scenarii/collectball/arena2b.pbm");
     };
 
     struct fitness
