@@ -16,7 +16,7 @@
 #endif
 
 #if !defined(ELMAN)
-    #define DNN 
+    #define ELMAN 
 #endif
 
 enum diversity_measure_t {multi=-1,adhoc=0,hamming,trajectory,entropy,nb_measures};
@@ -123,6 +123,7 @@ struct point_traj
     float operator-(const struct point_traj &op) const {return (abs(x-op.x)+abs(y-op.y))*1.0/NB_TILES; } //+NB_TILES*eqball(op); }
     };
 
+#include "fit_collectball.hpp"
 #include "fit_collectball_qd.hpp"
 
 #include "behavior_dist.hpp"
