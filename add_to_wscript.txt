@@ -1,8 +1,0 @@
-
-     sferes.create_variants(bld,
-                            source = 'scenarii/collectball/scenario_collectball.cpp',
-                            use = 'sferes2 fastsim',
-                            uselib =  'EIGEN SDL BOOST BOOST_GRAPH TBB SFERES2 FASTSIM NN2',
-                            target = 'collect',
-                            cxxflags = bld.get_env()['CXXFLAGS'] + ['-Wno-unknown-pragmas'],
-                            variants = varts)
