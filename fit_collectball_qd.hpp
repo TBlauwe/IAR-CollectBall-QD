@@ -1,10 +1,7 @@
 #ifndef _FIT_COLLECTBALL_QD_HPP
 #define _FIT_COLLECTBALL_QD_HPP
 
-#include <sferes/fit/fitness.hpp>
 #include <exp/modular_QD/fit_qd.hpp>
-
-#include "fit_collectball.hpp"
 
 extern std::string res_dir;
 
@@ -27,6 +24,18 @@ namespace sferes
             int father() { return _father; }
             int number() { return _number; }
 
+#if defined(DNN)
+            // ===== DNN =====
+            template<typename Indiv>
+                void eval(Indiv& ind) 
+                {
+                    ind.nn().simplify();
+                    this->_eval(ind.nn());
+                }
+
+#elif defined(ELMAN)
+
+            // ===== Ellman =====
             template<typename Indiv>
                 float dist(const Indiv& o) const 
                 {
@@ -48,6 +57,10 @@ namespace sferes
             float _sqr(float x) const { return x * x; }
             std::vector<float> _genotype;
 
+#else
+    # error "[fit_collectball_qd.hpp] - Unknown Fitness (Not DNN or Elman)"
+#endif
+
             // *************** _eval ************
             //
             // This is the main function to evaluate the individual
@@ -57,8 +70,6 @@ namespace sferes
             template<typename NN>
                 void _eval(NN &nn)
                 { 
-
-
 #ifdef VERBOSE
                     std::cout<<"Eval ..."<<std::endl;
 #endif
@@ -143,7 +154,6 @@ namespace sferes
                     }
 #endif
 
-
                     // Update objectives
                     unsigned int i;
                     for (i=0;i<nb_fit;i++) {
@@ -170,12 +180,12 @@ namespace sferes
                 {
 
                     /*
-                     VARIANTS :
+VARIANTS :
 
                      * VARIANT_SW1: the balls do not appear at first, only one ball appears, one after the other, when the switch is pushed
                      * VARIANT_SW2: the balls do not appear at first, only one ball appears, each time in the long room (the farthest position possible)
-                     
-                    */
+
+*/
 
 
                     //Visualisation mode
@@ -876,39 +886,39 @@ namespace sferes
 
 
     /** ****************** Fitness ELMAN *************************
-    SFERES_FITNESS(FitCollectBallElman, FitCollectBall)
-    {
-        public:
-            template<typename Indiv>
-                float dist(const Indiv& o) const 
-                {
-                    return SFERES_PARENT(FitCollectBallElman, FitCollectBall)::dist(o);
-                }
-            template<typename Indiv>
-                void eval(const Indiv& ind) 
-                {
-                    using namespace nn;
-                    typedef Elman<Neuron<PfWSum<>, AfSigmoidNoBias<> >, Connection<> > elman_t;
-                    elman_t nn(Params::dnn::nb_inputs, Params::elman::nb_hidden, Params::dnn::nb_outputs); 
-                    nn.set_all_weights(ind.data());
-                    _genotype = ind.data();
-                    this->_eval(nn);
-                }
-        protected:
-            float _sqr(float x) const { return x * x; }
-            std::vector<float> _genotype;
-    };
+      SFERES_FITNESS(FitCollectBallElman, FitCollectBall)
+      {
+      public:
+      template<typename Indiv>
+      float dist(const Indiv& o) const 
+      {
+      return SFERES_PARENT(FitCollectBallElman, FitCollectBall)::dist(o);
+      }
+      template<typename Indiv>
+      void eval(const Indiv& ind) 
+      {
+      using namespace nn;
+      typedef Elman<Neuron<PfWSum<>, AfSigmoidNoBias<> >, Connection<> > elman_t;
+      elman_t nn(Params::dnn::nb_inputs, Params::elman::nb_hidden, Params::dnn::nb_outputs); 
+      nn.set_all_weights(ind.data());
+      _genotype = ind.data();
+      this->_eval(nn);
+      }
+      protected:
+      float _sqr(float x) const { return x * x; }
+      std::vector<float> _genotype;
+      };
 
     // ****************** Fitness DNN *************************
     SFERES_FITNESS(FitCollectBallDnn, FitCollectBall)
     {
-        public:
-            template<typename Indiv>
-                void eval(Indiv& ind) 
-                {
-                    ind.nn().simplify();
-                    this->_eval(ind.nn());
-                }
+    public:
+    template<typename Indiv>
+    void eval(Indiv& ind) 
+    {
+    ind.nn().simplify();
+    this->_eval(ind.nn());
+    }
     }; **/
 }
 

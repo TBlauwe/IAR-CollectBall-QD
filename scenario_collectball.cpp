@@ -5,11 +5,8 @@
 #include "defparams.hpp"            // Params
 #include "defstats.hpp"             // Define all stats
 #include "definitsimu.hpp"          // Simulation initialization
-#include "fit_collectball_qd.hpp"   // Fitness function
-
 
 std::string res_dir="not_initialized";
-
 
 // ****************** Main *************************
 int main(int argc, char **argv)
@@ -19,10 +16,6 @@ int main(int argc, char **argv)
 
     using namespace sferes;
 
-    typedef FitCollectBallQD<Params> fit_t;
-
-    typedef gen::EvoFloat<8, Params> gen_t;
-    typedef phen::Parameters<gen_t, fit_t, Params> phen_t;
     typedef eval::Parallel<Params> eval_t;
 
     typedef modif::Dummy<> modifier_t;

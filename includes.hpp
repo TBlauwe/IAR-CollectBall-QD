@@ -2,35 +2,34 @@
 #define _INCLUDES_HPP_
 
 /***
-includes.hpp : All necessary includes and defines
-***/
+  includes.hpp : All necessary includes and defines
+ ***/
 
 // Program variants are defined by a set of labels described below:
 
 // these are the default, no need to specify it anymore
 
 
-
 #ifdef DYNAMIC_DIVERSITY
-#define MULTIDIST
-#define DIV_BEHAVIOR
+    #define MULTIDIST
+    #define DIV_BEHAVIOR
 #endif
 
 #if !defined(ELMAN)
-#define DNN 
+    #define DNN 
 #endif
 
 enum diversity_measure_t {multi=-1,adhoc=0,hamming,trajectory,entropy,nb_measures};
 
 typedef enum _fit_id{
-  ballcount
+    ballcount
 #ifdef DIV_BEHAVIOR
-  ,div_behavior
+        ,div_behavior
 #endif 
 #ifdef NOV_BEHAVIOR
-  ,nov_behavior
+        ,nov_behavior
 #endif
-  ,nb_fit
+        ,nb_fit
 } Fit_id;
 
 #if !defined(ADHOC) && !defined(HAMMING) && !defined(TRAJECTORY) && !defined(ENTROPY) && !defined(MULTIDIST) 
@@ -63,7 +62,7 @@ typedef enum _fit_id{
 #endif
 
 #include <Eigen/Core>
- 
+
 #include <iostream>
 #include <bitset>
 #include <limits>
@@ -100,9 +99,8 @@ typedef enum _fit_id{
 #include <sferes/stat/best_fit.hpp>
 
 
-
 #ifdef FILIATION
-    #include "stat_filiation.hpp"
+#include "stat_filiation.hpp"
 #endif
 
 #include "stat_nn.hpp"
@@ -118,12 +116,14 @@ using namespace sferes::gen::dnn;
 // Any other definition of point_type is possible, not necessary the trajectory
 struct point_traj
 {
-  int x,y;
-  bool ball;
-  bool operator==(const struct point_traj &op) const {return x==op.x && y==op.y; } //&& eqball(op); }
-  bool eqball(const struct point_traj &op) const {return ball^op.ball;}
-  float operator-(const struct point_traj &op) const {return (abs(x-op.x)+abs(y-op.y))*1.0/NB_TILES; } //+NB_TILES*eqball(op); }
-};
+    int x,y;
+    bool ball;
+    bool operator==(const struct point_traj &op) const {return x==op.x && y==op.y; } //&& eqball(op); }
+    bool eqball(const struct point_traj &op) const {return ball^op.ball;}
+    float operator-(const struct point_traj &op) const {return (abs(x-op.x)+abs(y-op.y))*1.0/NB_TILES; } //+NB_TILES*eqball(op); }
+    };
+
+#include "fit_collectball_qd.hpp"
 
 #include "behavior_dist.hpp"
 
@@ -149,8 +149,6 @@ struct point_traj
 
 // ============== Modular QD ================
 #include <exp/modular_QD/quality_diversity.hpp>
-#include <exp/modular_QD/fit_qd.hpp>
-
 #include <exp/modular_QD/selector.hpp>
 #include <exp/modular_QD/container.hpp>
 #include <exp/modular_QD/stat.hpp>
