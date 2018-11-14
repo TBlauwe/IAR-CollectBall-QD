@@ -39,7 +39,7 @@ namespace sferes
             template<typename Indiv>
                 float dist(const Indiv& o) const 
                 {
-                    return SFERES_PARENT(FitCollectBallElman, FitCollectBall)::dist(o);
+                    return SFERES_PARENT(FitCollectBallQD, FitCollectBall)::dist(o);
                 }
 
             template<typename Indiv>

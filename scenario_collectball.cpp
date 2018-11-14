@@ -17,19 +17,17 @@ int main(int argc, char **argv)
 
     typedef eval::Parallel<Params> eval_t;
 
-    // STATS 
     typedef boost::fusion::vector<
-        stat::Container<phen_t, Params>
+        sferes::stat::Container<phen_t, Params>
 #ifdef FILIATION
-        ,stat::Filiation<phen_t, Params>
+        ,sferes::stat::Filiation<phen_t, Params>
 #endif
-        ,stat::BestFitVal<phen_t, Params>
+        ,sferes::stat::Progress<phen_t, Params>
 #ifdef TRACELOG
-        ,stat::TraceLog<phen_t, Params>
+        ,sferes::stat::TraceLog<phen_t, Params>
 #endif
         >  stat_t;
 
-   
     //MODIFIER
     typedef boost::fusion::vector<
 #if defined (DYNAMIC_DIVERSITY) || defined(DIV_BEHAVIOR)
@@ -79,5 +77,16 @@ int main(int argc, char **argv)
     typedef ea::QualityDiversity<phen_t, eval_t, stat_t, modifier_t, select_t, container_t, Params> ea_t;
 
     ea_t ea;
-    ea.run();
+
+    try {
+        std::cout<<"start"<<std::endl;
+        res_dir=ea.res_dir();
+        ea.run();
+        std::cout<<"end"<<std::endl;
+    }
+    catch(fastsim::Exception e) {
+        std::cerr<<"fastsim::Exception: "<<e.get_msg()<<std::endl;
+    }
+    return 0;
+
 }

@@ -233,7 +233,7 @@ struct Params
         typedef AfSigmoidBias<bias_t> af_t; 
         typedef Neuron<pf_t, af_t >  neuron_t;
         typedef Connection <weight_t> connection_t;
-        typedef sferes::gen::Dnn< neuron_t, connection_t, Params> gen_t;
+        typedef gen::Dnn< neuron_t, connection_t, Params> gen_t;
         typedef phen::Dnn<gen_t, fit_t, Params> phen_t;
 
 #else

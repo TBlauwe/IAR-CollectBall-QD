@@ -9,7 +9,6 @@
 
 // these are the default, no need to specify it anymore
 
-
 #ifdef DYNAMIC_DIVERSITY
     #define MULTIDIST
     #define DIV_BEHAVIOR

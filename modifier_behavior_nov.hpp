@@ -1,12 +1,8 @@
-
-
 #ifndef MODIFIER_BEHAVIOR_NOV_HPP
 #define MODIFIER_BEHAVIOR_NOV_HPP
 
-#include <sferes/stc.hpp>
+#include <exp/modular_QD/quality_diversity.hpp>
 #include <Eigen/Core>
-#include <algorithm>
-
 
 using namespace sferes::ea;
 using namespace sferes::b_dist;
@@ -17,7 +13,6 @@ using namespace sferes::b_dist;
 
 namespace sferes
 {
-
 
   namespace modif
   {

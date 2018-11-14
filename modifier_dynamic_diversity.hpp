@@ -2,8 +2,8 @@
 #define MODIFIER_DYNAMIC_DIVERSITY_HPP
 
 #include "behavior_dist.hpp"
-#include <sferes/stc.hpp>
-#include<vector>
+#include <exp/modular_QD/quality_diversity.hpp>
+#include <vector>
 //#include "viz_server.hpp"
 //#include "ea_server.hpp"
 
