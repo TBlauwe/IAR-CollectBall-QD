@@ -14,8 +14,6 @@
     #define DIV_BEHAVIOR
 #endif
 
-#define ELMAN 
-
 #if !defined(ELMAN)
     #define DNN
 #endif
