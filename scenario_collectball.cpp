@@ -50,9 +50,6 @@ int main(int argc, char **argv)
 
     // ===== STAT ===== 
     typedef boost::fusion::vector<
-#ifdef FILIATION
-        sferes::stat::Filiation<phen_t, Params>
-#endif
         sferes::stat::Progress<phen_t, Params>
 #ifdef TRACELOG
         sferes::stat::TraceLog<phen_t, Params>
@@ -60,23 +57,11 @@ int main(int argc, char **argv)
         >  stat_t;
 
     // ===== MODIFIER =====
-    typedef boost::fusion::vector<
-#if defined (DYNAMIC_DIVERSITY) || defined(DIV_BEHAVIOR)
-        modif::Modifier_DD<Params>
-#elif defined(NOV_BEHAVIOR) 
-        modif::BehaviorNov<Params>  
-#else
-        modif::Dummy<Params>
-#endif
-        > modifier_t;
+    typedef boost::fusion::vector<modif::Dummy<Params>> modifier_t;
 
 
     // ===== CONTAINER =====
-#if defined(GRID)
-    typedef container::Grid<phen_t, Params> container_t;
-#else // ARCHIVE
     typedef container::Archive<phen_t, Params> container_t;
-#endif
 
 
     // ===== SELECTOR =====
@@ -121,6 +106,7 @@ int main(int argc, char **argv)
         debugPrint();
 
         ea.run(program_name);
+        //run_ea(argc, argv, ea);
 
         std::cout<<"=============== END =============="<<std::endl;
     }

@@ -31,9 +31,7 @@ typedef enum _fit_id{
     ,nb_fit
 } Fit_id;
 
-#if !defined(ADHOC) && !defined(HAMMING) && !defined(TRAJECTORY) && !defined(ENTROPY) && !defined(MULTIDIST) 
-    #define TRAJECTORY
-#endif
+#define TRAJECTORY
 
 #define NB_TILES 12.0
 
@@ -116,7 +114,7 @@ struct point_traj
     bool operator==(const struct point_traj &op) const {return x==op.x && y==op.y; } //&& eqball(op); }
     bool eqball(const struct point_traj &op) const {return ball^op.ball;}
     float operator-(const struct point_traj &op) const {return (abs(x-op.x)+abs(y-op.y))*1.0/NB_TILES; } //+NB_TILES*eqball(op); }
-    };
+};
 
 #include "fit_collectball.hpp"
 #include "fit_collectball_qd.hpp"

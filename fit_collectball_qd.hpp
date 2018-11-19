@@ -24,44 +24,6 @@ namespace sferes
             int father() { return _father; }
             int number() { return _number; }
 
-#if defined(DNN)
-            // ===== DNN =====
-            template<typename Indiv>
-                void eval(Indiv& ind) 
-                {
-                    ind.nn().simplify();
-                    this->_eval(ind.nn());
-                }
-
-#elif defined(ELMAN)
-
-            // ===== Ellman =====
-            template<typename Indiv>
-                float dist(const Indiv& o) const 
-                {
-                    return SFERES_PARENT(FitCollectBallQD, FitCollectBall)::dist(o);
-                }
-
-            template<typename Indiv>
-                void eval(const Indiv& ind) 
-                {
-                    using namespace nn;
-                    typedef Elman<Neuron<PfWSum<>, AfSigmoidNoBias<> >, Connection<> > elman_t;
-                    elman_t nn(Params::dnn::nb_inputs, Params::elman::nb_hidden, Params::dnn::nb_outputs); 
-                    nn.set_all_weights(ind.data());
-                    _genotype = ind.data();
-                    this->_eval(nn);
-                }
-
-        protected:
-            float _sqr(float x) const { return x * x; }
-            std::vector<float> _genotype;
-
-        public:
-
-#else
-    # error "[fit_collectball_qd.hpp] - Unknown Fitness"
-#endif
 
             // *************** _eval ************
             //
@@ -69,12 +31,14 @@ namespace sferes
             // It runs fastsim (simu_t simu)
             // 
             // **********************************
-            template<typename NN>
-                void _eval(NN &nn)
+            template<typename Indiv>
+                void eval(Indiv& ind)
                 { 
 #ifdef VERBOSE
                     std::cout<<"Eval ..."<<std::endl;
 #endif
+
+                    auto nn = ind.nn();
 
                     // Init of the number of fitness objectives
                     this->_objs.resize(nb_fit);
@@ -165,6 +129,10 @@ namespace sferes
                     // Ball Objective 
                     this->_objs[ballcount] = nb_collected/(1.0*nbinst*nb_balls); 
                     this->_value = nb_collected/(1.0*nbinst*nb_balls); 
+
+                    struct point_traj last = _trajectory.back();
+                    std::vector<float> distance = {(float) last.x, (float) last.y};
+                    this->set_desc(distance);
 
                     // Diversity/novelty objectives are updated elsewhere (in a modifier)
 
@@ -828,7 +796,6 @@ VARIANTS :
 
 #endif 
 
-#if defined(TRAJECTORY) || defined(MULTIDIST)
                     if(num_eval<Params::fitness::nb_step_watch) {
                         if(num_eval%50==0) {
                             struct point_traj up;
@@ -841,8 +808,6 @@ VARIANTS :
                                 _trajectory.push_back(up);
                         }
                     }
-#endif 
-
                 } // *** end of add_history_value ***
 
 
@@ -885,43 +850,6 @@ VARIANTS :
 
             std::ofstream *tracefile;
     };
-
-
-    /** ****************** Fitness ELMAN *************************
-      SFERES_FITNESS(FitCollectBallElman, FitCollectBall)
-      {
-      public:
-      template<typename Indiv>
-      float dist(const Indiv& o) const 
-      {
-      return SFERES_PARENT(FitCollectBallElman, FitCollectBall)::dist(o);
-      }
-      template<typename Indiv>
-      void eval(const Indiv& ind) 
-      {
-      using namespace nn;
-      typedef Elman<Neuron<PfWSum<>, AfSigmoidNoBias<> >, Connection<> > elman_t;
-      elman_t nn(Params::dnn::nb_inputs, Params::elman::nb_hidden, Params::dnn::nb_outputs); 
-      nn.set_all_weights(ind.data());
-      _genotype = ind.data();
-      this->_eval(nn);
-      }
-      protected:
-      float _sqr(float x) const { return x * x; }
-      std::vector<float> _genotype;
-      };
-
-    // ****************** Fitness DNN *************************
-    SFERES_FITNESS(FitCollectBallDnn, FitCollectBall)
-    {
-    public:
-    template<typename Indiv>
-    void eval(Indiv& ind) 
-    {
-    ind.nn().simplify();
-    this->_eval(ind.nn());
-    }
-    }; **/
 }
 
 
