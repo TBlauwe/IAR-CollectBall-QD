@@ -67,11 +67,7 @@ struct Params
 
     struct elman
     {
-#ifndef SELMAN
         static constexpr size_t nb_hidden = Params::dnn::nb_inputs;
-#else
-        static constexpr size_t nb_hidden = 5;
-#endif
     };
 
 #ifdef SAMPLEDPARAMS
@@ -94,12 +90,7 @@ struct Params
         static constexpr cross_over_t cross_over_type = sbx;
         //static constexpr cross_over_t cross_over_type = no_cross_over;
         static constexpr float cross_rate = 0.0f;    
-#ifdef ELMAN
-        static constexpr float mutation_rate = 10.0f / 
-            nn::elman::Count<Params::dnn::nb_inputs, Params::elman::nb_hidden, Params::dnn::nb_outputs>::nb_params; 
-#else
         static constexpr float mutation_rate = 0.1f;
-#endif
         static constexpr float eta_m = 15.0f;
         static constexpr float eta_c = 10.0f;
     };
@@ -166,7 +157,7 @@ struct Params
     struct behavior_diversity{
         static constexpr int behavior_distance=
 #ifdef ADHOC
-        adhoc;
+            adhoc;
 #elif defined(HAMMING)
         hamming;
 #elif defined(TRAJECTORY)
@@ -176,7 +167,7 @@ struct Params
 #elif defined(MULTIDIST)
         multi;        
 #else
-    #error "You must define a behavior distance."
+#error "You must define a behavior distance."
 #endif
     };
 
@@ -207,39 +198,23 @@ struct Params
 
 };
 
-#if defined(ELMAN) //ELMAN  
-    typedef FitCollectBallQD<Params> fit_t;
+using namespace nn;
+typedef FitCollectBallQD<Params> fit_t;
 
 #ifndef SAMPLEDPARAMS
-        typedef gen::EvoFloat<nn::elman::Count<Params::dnn::nb_inputs, Params::elman::nb_hidden, Params::dnn::nb_outputs>::nb_params, Params> gen_t;
+    typedef phen::Parameters<gen::EvoFloat<1, Params>, fit::FitDummy<>, Params> weight_t;
+    typedef phen::Parameters<gen::EvoFloat<1, Params>, fit::FitDummy<>, Params> bias_t;
 #else
-        typedef gen::Sampled<nn::elman::Count<Params::dnn::nb_inputs, Params::elman::nb_hidden, Params::dnn::nb_outputs>::nb_params, Params> gen_t;
-#endif
-        typedef phen::Parameters<gen_t, fit_t, Params> phen_t;
-
-#elif defined(DNN) // DNN
-    using namespace nn;
-    typedef FitCollectBallQD<Params> fit_t;
-
-#ifndef SAMPLEDPARAMS
-        typedef phen::Parameters<gen::EvoFloat<1, Params>, fit::FitDummy<>, Params> weight_t;
-        typedef phen::Parameters<gen::EvoFloat<1, Params>, fit::FitDummy<>, Params> bias_t;
-#else
-        typedef phen::Parameters<gen::Sampled<1, Params>, fit::FitDummy<>, Params> weight_t;
-        typedef phen::Parameters<gen::Sampled<1, Params>, fit::FitDummy<>, Params> bias_t;
-#endif
-        typedef PfWSum<weight_t> pf_t;
-        typedef phen::Parameters<gen::EvoFloat<4, Params>, fit::FitDummy<>, Params> node_label_t;
-        typedef AfSigmoidBias<bias_t> af_t; 
-        typedef Neuron<pf_t, af_t >  neuron_t;
-        typedef Connection <weight_t> connection_t;
-        typedef gen::Dnn< neuron_t, connection_t, Params> gen_t;
-        typedef phen::Dnn<gen_t, fit_t, Params> phen_t;
-
-#else
-    # error "unknown gen."
+    typedef phen::Parameters<gen::Sampled<1, Params>, fit::FitDummy<>, Params> weight_t;
+    typedef phen::Parameters<gen::Sampled<1, Params>, fit::FitDummy<>, Params> bias_t;
 #endif
 
-
+typedef PfWSum<weight_t> pf_t;
+typedef phen::Parameters<gen::EvoFloat<4, Params>, fit::FitDummy<>, Params> node_label_t;
+typedef AfSigmoidBias<bias_t> af_t; 
+typedef Neuron<pf_t, af_t >  neuron_t;
+typedef Connection <weight_t> connection_t;
+typedef gen::Dnn< neuron_t, connection_t, Params> gen_t;
+typedef phen::Dnn<gen_t, fit_t, Params> phen_t;
 
 #endif

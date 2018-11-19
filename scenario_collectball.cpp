@@ -3,40 +3,7 @@
                                     //              edit_distance.hpp
                                     //              modifier_behavior.hpp
 #include "defparams.hpp"            // Params
-#include "defstats.hpp"             // Define all stats
 #include "definitsimu.hpp"          // Simulation initialization
-
-void debugPrint(){
-    std::cout << std::endl << " ---------- PARAMETERS ----------" << std::endl;
-    std::cout << " FITNESS   : " << 
-                        #if defined(ELMAN)
-                                "ELMAN"
-                        #elif defined(DNN)
-                                "DNN"
-                        #else
-                                "Unknown"
-                        #endif
-                                << std::endl;
-    std::cout << " CONTAINER : " << 
-                        #if defined(GRID)
-                                "GRID"
-                        #else
-                                "Archive (or unknown)"
-                        #endif
-                                << std::endl;
-    std::cout << " FIT_ID    : " << 
-                        #if defined(NOV_BEHAVIOR)
-                                "NOV_BEHAVIOR " <<
-                        #endif
-                        #if defined(DIV_BEHAVIOR)
-                                "DIV_BEHAVIOR " << 
-                        #endif
-                        #if defined(DYNAMIC_DIVERSITY)
-                                "DYNAMIC_DIVERSITY " <<
-                        #endif
-                                std::endl;
-    std::cout << " ------------- END --------------" << std::endl << std::endl;
-}
 
 // ****************** Main *************************
 int main(int argc, char **argv)
@@ -102,8 +69,6 @@ int main(int argc, char **argv)
     try {
         std::cout<<"=============== STARTING =============="<<std::endl << std::endl;
         std::cout<<"Program : "<< program_name << std::endl;
-
-        debugPrint();
 
         ea.run(program_name);
         //run_ea(argc, argv, ea);

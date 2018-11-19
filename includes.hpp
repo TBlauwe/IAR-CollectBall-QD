@@ -9,25 +9,10 @@
 
 // these are the default, no need to specify it anymore
 
-#ifdef DYNAMIC_DIVERSITY
-    #define MULTIDIST
-    #define DIV_BEHAVIOR
-#endif
-
-#if !defined(ELMAN)
-    #define DNN
-#endif
-
-enum diversity_measure_t {multi=-1,adhoc=0,hamming,trajectory,entropy,nb_measures};
+enum diversity_measure_t {multi=-1, adhoc=0, hamming,trajectory, entropy, nb_measures};
 
 typedef enum _fit_id{
     ballcount
-#ifdef DIV_BEHAVIOR
-    ,div_behavior
-#endif 
-#ifdef NOV_BEHAVIOR
-    ,nov_behavior
-#endif
     ,nb_fit
 } Fit_id;
 
@@ -84,26 +69,20 @@ typedef enum _fit_id{
     #include <sferes/gen/sampled.hpp>
 #endif
 
-#include <sferes/fit/fitness.hpp>
 #include <sferes/modif/dummy.hpp>
 #include <sferes/eval/parallel.hpp>
 #include <sferes/eval/eval.hpp>
 #include <sferes/stat/pareto_front.hpp>
 #include <sferes/stat/best_fit.hpp>
 
-
-#ifdef FILIATION
-#include "stat_filiation.hpp"
-#endif
-
-#include "stat_nn.hpp"
-#include "stat_tracelog.hpp"
 #include <modules/fastsim/simu_fastsim.hpp>
 
 using namespace sferes;
+
 #ifndef SAMPLEDPARAMS
     using namespace sferes::gen::evo_float;
 #endif
+
 using namespace sferes::gen::dnn;
 
 // Any other definition of point_type is possible, not necessary the trajectory
@@ -116,20 +95,9 @@ struct point_traj
     float operator-(const struct point_traj &op) const {return (abs(x-op.x)+abs(y-op.y))*1.0/NB_TILES; } //+NB_TILES*eqball(op); }
 };
 
-#include "fit_collectball.hpp"
 #include "fit_collectball_qd.hpp"
 
 #include "behavior_dist.hpp"
-
-
-#if defined(NOV_BEHAVIOR)
-    #include "modifier_behavior_nov.hpp"
-#endif
-
-#if defined(DYNAMIC_DIVERSITY) || defined(DIV_BEHAVIOR)
-    #include "modifier_dynamic_diversity.hpp"
-#endif
-
 
 // =============== Misc ===============   
 #include <cmath>
