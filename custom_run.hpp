@@ -140,7 +140,7 @@ namespace sferes {
             // command-line options
             namespace po = boost::program_options;
 
-            std::cout << " ========== Starting ========== " << std::endl;
+            std::cout << " ========== Starting ========== " << std::endl << std::endl;
 
             std::cout <<"sferes2 version : "<<VERSION<<std::endl;
 
