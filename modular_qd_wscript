@@ -66,33 +66,21 @@ def configure(conf):
 
 
 def build(bld):
-     
-     libs = 'HEXAPOD_ROBDYN_SIMU HEXAPOD_CONTROLLER ROBDYN ODE EIGEN BOOST BOOST_UNIT_TEST_FRAMEWORK BOOST_TIMER TBB '
-     
-     print ("Entering directory `" + os.getcwd() + "/modules/'")
 
-     varts=['GRID RANDOM','GRID NOSELECTION', 'GRID PARETO',
-            'GRID FITNESS', 'GRID NOVELTY', 'GRID CURIOSITY',
-            'GRID POPFITNESS', 'GRID POPNOVELTY', 'GRID POPCURIOSITY',
-            'GRID TOURFITNESS', 'GRID TOURNOVELTY', 'GRID TOURCURIOSITY',
-            'ARCHIVE RANDOM','ARCHIVE NOSELECTION', 'ARCHIVE PARETO',
+    print ("Entering directory `" + os.getcwd() + "/modules/'")
+
+    collect_varts = [
+            'ARCHIVE RANDOM','ARCHIVE NOSELECTION',
             'ARCHIVE FITNESS','ARCHIVE NOVELTY','ARCHIVE CURIOSITY',
             'ARCHIVE POPFITNESS','ARCHIVE POPNOVELTY','ARCHIVE POPCURIOSITY',
-            'ARCHIVE TOURFITNESS','ARCHIVE TOURNOVELTY','ARCHIVE TOURCURIOSITY']
+            'ARCHIVE TOURFITNESS','ARCHIVE TOURNOVELTY','ARCHIVE TOURCURIOSITY'
+            ]
 
-     collect_varts = [
-             'ELMAN NOV_BEHAVIOUR GRID CURIOSITY',
-             #'GRID CURIOSITY',
-             ]
+    sferes.create_variants(bld,
+            source = 'scenarii/collectball/scenario_collectball.cpp',
+            use = 'sferes2 fastsim',
+            uselib =  'EIGEN SDL BOOST BOOST_GRAPH TBB SFERES2 FASTSIM',
+            target = 'collect',
+            cxxflags = bld.get_env()['CXXFLAGS'] + ['-Wno-unknown-pragmas'],
+            variants = collect_varts)
 
-     #bld.program(features='cxx cxxstlib', source='scenarii/arm_hori.cpp', includes='. .. ../../', target='robot', uselib=libs)
-                 
-     #sferes.create_variants(bld, source = 'scenarii/scenario_arm.cpp', use = 'sferes2 robot', includes='. .. ../../ ./scenarii/', uselib = libs, target = 'scenario_arm', variants = varts)
-
-     sferes.create_variants(bld,
-                            source = 'scenarii/collectball/scenario_collectball.cpp',
-                            use = 'sferes2 fastsim',
-                            uselib =  'EIGEN SDL BOOST BOOST_GRAPH TBB SFERES2 FASTSIM',
-                            target = 'collect',
-                            cxxflags = bld.get_env()['CXXFLAGS'] + ['-Wno-unknown-pragmas'],
-                            variants = collect_varts)

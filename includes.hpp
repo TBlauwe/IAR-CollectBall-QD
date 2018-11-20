@@ -59,7 +59,7 @@ typedef enum _fit_id{
 #include <modules/nn2/phen_dnn.hpp>
 #include <modules/nn2/elman.hpp>
 
-#include <sferes/run.hpp>
+#include "custom_run.hpp"           
 #include <sferes/stc.hpp>
 #include <sferes/misc.hpp>
 

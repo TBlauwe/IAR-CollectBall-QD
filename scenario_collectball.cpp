@@ -3,13 +3,14 @@
                                     //              edit_distance.hpp
                                     //              modifier_behavior.hpp
 #include "defparams.hpp"            // Params
+#include "defstats.hpp"            // Params
 #include "definitsimu.hpp"          // Simulation initialization
+
+#include "custom_run.hpp"           // Simulation initialization
 
 // ****************** Main *************************
 int main(int argc, char **argv)
 {
-    srand(time(0));
-
     using namespace sferes;
 
     // ===== EVAL =====
@@ -17,9 +18,11 @@ int main(int argc, char **argv)
 
     // ===== STAT ===== 
     typedef boost::fusion::vector<
-        sferes::stat::Progress<phen_t, Params>
+        sferes::stat::BestFitVal<phen_t, Params>
+        ,sferes::stat::Progress<phen_t, Params>
+        ,sferes::stat::Selection<phen_t, Params>
 #ifdef TRACELOG
-        sferes::stat::TraceLog<phen_t, Params>
+        ,sferes::stat::TraceLog<phen_t, Params>
 #endif
         >  stat_t;
 
@@ -52,8 +55,6 @@ int main(int argc, char **argv)
     typedef selector::TournamentBased<phen_t,selector::getNovelty> select_t;
 #elif defined(TOURCURIOSITY)
     typedef selector::TournamentBased<phen_t,selector::getCuriosity> select_t;
-#elif defined(PARETO) //NSLC
-    typedef selector::ParetoBased<phen_t,boost::fusion::vector<selector::getNovelty,selector::getLocalQuality>, Params > select_t;
 #else // NOSELECTION
     typedef selector::NoSelection<phen_t> select_t;
 #endif
@@ -61,24 +62,12 @@ int main(int argc, char **argv)
     typedef ea::QualityDiversity<phen_t, eval_t, stat_t, modifier_t, select_t, container_t, Params> ea_t;
     ea_t ea;
 
-    // Building result's dir
-    const std::string path(argv[0]);
-    auto const pos=path.find_last_of('/');
-    const auto program_name=path.substr(pos+1);
-
     try {
-        std::cout<<"=============== STARTING =============="<<std::endl << std::endl;
-        std::cout<<"Program : "<< program_name << std::endl;
-
-        ea.run(program_name);
-        //run_ea(argc, argv, ea);
-
-        std::cout<<"=============== END =============="<<std::endl;
+        custom_run_ea(argc, argv, ea, fit_t());
     }
     catch(fastsim::Exception e) {
         std::cerr<<"fastsim::Exception: "<<e.get_msg()<<std::endl;
     }
     return 0;
-
 }
 
