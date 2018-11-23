@@ -65,11 +65,6 @@ struct Params
         static constexpr init_t init = ff;
     };
 
-    struct elman
-    {
-        static constexpr size_t nb_hidden = Params::dnn::nb_inputs;
-    };
-
 #ifdef SAMPLEDPARAMS
     struct sampled 
     {
@@ -98,11 +93,13 @@ struct Params
 
     struct pop
     {
+
 #ifdef DEBUG
         static constexpr unsigned size = 8;
 #else
         static constexpr unsigned size = 200;
 #endif
+
         // number of generations
 #ifdef NOSTOP
         static constexpr unsigned nb_gen = 20001;
@@ -112,12 +109,7 @@ struct Params
         static constexpr unsigned nb_gen = 4001; //RESET 5001
 #endif
 
-#if defined(FILIATION)
-        static constexpr int dump_period = 1;
-#else
         static constexpr int dump_period = 50;
-#endif
-        static constexpr int initial_aleat = 2;		
     };
 
     struct simu
@@ -144,6 +136,7 @@ struct Params
     {
         static constexpr float min_2 = 0.0f;
         static constexpr float max_2 = 5.0f;
+
 #if defined(LOWPARAMS)
         static constexpr float min = -1.0f;
         static constexpr float max = 1.0f;
@@ -152,61 +145,17 @@ struct Params
         static constexpr float max = 5.0f;
 #endif
     };
-
-
-    struct behavior_diversity{
-        static constexpr int behavior_distance=
-#ifdef ADHOC
-            adhoc;
-#elif defined(HAMMING)
-        hamming;
-#elif defined(TRAJECTORY)
-        trajectory;
-#elif defined (ENTROPY)
-        entropy;
-#elif defined(MULTIDIST)
-        multi;        
-#else
-#error "You must define a behavior distance."
-#endif
-    };
-
-    struct novelty
-    {
-        static constexpr unsigned int k = 15; //nb neighbors
-
-#ifdef HAMMING
-        static constexpr float rho_min = 0.30; //Initial rho
-#elif defined(ADHOC)
-        static constexpr float rho_min = 5.0; //Initial rho
-#elif defined(TRAJECTORY)
-        static constexpr float rho_min = 10.0; //Initial rho
-#else
-        static constexpr float rho_min = 0.50; //Initial rho
-#endif
-        static constexpr unsigned int max_archive_size = 5000; //Max archive size
-    };
-
-
-    struct dynamic_diversity
-    {
-        // period of diversity change
-        static constexpr unsigned int change_period = 1;
-
-    };
-
-
 };
 
 using namespace nn;
 typedef FitCollectBallQD<Params> fit_t;
 
 #ifndef SAMPLEDPARAMS
-    typedef phen::Parameters<gen::EvoFloat<1, Params>, fit::FitDummy<>, Params> weight_t;
-    typedef phen::Parameters<gen::EvoFloat<1, Params>, fit::FitDummy<>, Params> bias_t;
+typedef phen::Parameters<gen::EvoFloat<1, Params>, fit::FitDummy<>, Params> weight_t;
+typedef phen::Parameters<gen::EvoFloat<1, Params>, fit::FitDummy<>, Params> bias_t;
 #else
-    typedef phen::Parameters<gen::Sampled<1, Params>, fit::FitDummy<>, Params> weight_t;
-    typedef phen::Parameters<gen::Sampled<1, Params>, fit::FitDummy<>, Params> bias_t;
+typedef phen::Parameters<gen::Sampled<1, Params>, fit::FitDummy<>, Params> weight_t;
+typedef phen::Parameters<gen::Sampled<1, Params>, fit::FitDummy<>, Params> bias_t;
 #endif
 
 typedef PfWSum<weight_t> pf_t;

@@ -9,14 +9,11 @@
 
 // these are the default, no need to specify it anymore
 
+#define TRAJECTORY
+
 enum diversity_measure_t {multi=-1, adhoc=0, hamming,trajectory, entropy, nb_measures};
 
-typedef enum _fit_id{
-    ballcount
-    ,nb_fit
-} Fit_id;
-
-#define TRAJECTORY
+typedef enum _fit_id{ ballcount,  nb_fit } Fit_id;
 
 #define NB_TILES 12.0
 
@@ -28,7 +25,6 @@ typedef enum _fit_id{
 
 //basket color
 #define BASKET 2
-
 
 // To avoid problems between SDL and multithreading
 #if defined(APPLE) || defined(VISU)
@@ -77,6 +73,7 @@ typedef enum _fit_id{
 
 #include <modules/fastsim/simu_fastsim.hpp>
 
+
 using namespace sferes;
 
 #ifndef SAMPLEDPARAMS
@@ -96,7 +93,6 @@ struct point_traj
 };
 
 #include "fit_collectball_qd.hpp"
-
 #include "behavior_dist.hpp"
 
 // =============== Misc ===============   

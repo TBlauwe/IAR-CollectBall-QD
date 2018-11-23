@@ -27,11 +27,16 @@ int main(int argc, char **argv)
         >  stat_t;
 
     // ===== MODIFIER =====
-    typedef boost::fusion::vector<modif::Dummy<Params>> modifier_t;
+    typedef modif::Dummy<> modifier_t;
+
 
 
     // ===== CONTAINER =====
+#if defined(GRID)
+    typedef selector::Grid<phen_t> select_t;
+#else
     typedef container::Archive<phen_t, Params> container_t;
+#endif
 
 
     // ===== SELECTOR =====

@@ -46,3 +46,10 @@ To run an experiment, launch one of the executables in : [...]/sferes2/build/exp
 ./[path-to]/my_executable -o [output_file_name] --load=./[path-to]/gen_XX
 ```
 where `my_executable` is the the program that has generated `gen_XX` and XX the generation number to look at.
+
+## Deploy on GoogleCloud
+
+Links :
+
+* [Quick Start](https://cloud.google.com/cloud-build/docs/quickstart-docker)
+* [Deploying](https://cloud.google.com/compute/docs/containers/deploying-containers<Paste>)

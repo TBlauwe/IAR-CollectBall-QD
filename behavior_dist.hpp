@@ -68,7 +68,7 @@ template <int nb_bits>
     }
 
     template<typename Indiv>
-    float multi_dist(int div,const Indiv& o1, const Indiv &o2)
+    float multi_dist(int div, const Indiv& o1, const Indiv &o2)
     {
       switch(div) {
         case adhoc: 

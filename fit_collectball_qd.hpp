@@ -38,6 +38,7 @@ namespace sferes
                     std::cout<<"Eval ..."<<std::endl;
 #endif
 
+                    ind.nn().simplify();
                     auto nn = ind.nn();
 
                     // Init of the number of fitness objectives
@@ -128,14 +129,13 @@ namespace sferes
 
                     // Ball Objective 
                     this->_objs[ballcount] = nb_collected/(1.0*nbinst*nb_balls); 
-                    this->_value = nb_collected/(1.0*nbinst*nb_balls); 
+                    this->_value =this->_objs[0]; 
 
                     struct point_traj last = _trajectory.back();
-                    std::vector<float> distance = {(float) last.x, (float) last.y};
-                    this->set_desc(distance);
+                    std::vector<float> data = {(float) (last.x), (float) (last.y)};
+                    this->set_desc(data);
 
                     // Diversity/novelty objectives are updated elsewhere (in a modifier)
-
 #ifdef VERBOSE
                     static int nbeval=0;
                     std::cout<<"fit="<<this->_objs[0]<<" nb_collected="<<nb_collected<<" eval_length="<<_nb_eval<<" nbeval="<<nbeval<<std::endl;
