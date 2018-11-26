@@ -65,7 +65,8 @@ def configure(conf):
     conf.check_hexapod_robdyn_simu()
 
 
-def write_run_all_sh(name, variants, path="build/exp/modular_QD/"):
+def write_run_all_sh(name, variants, path=os.getcwd() + "/build/"):
+    print ("Writing shell file to : " + path)
     file = open(path + "run_all_" + name + ".sh","w") 
      
     file.write("#!/bin/sh\n")
