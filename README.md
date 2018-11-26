@@ -47,9 +47,16 @@ To run an experiment, launch one of the executables in : [...]/sferes2/build/exp
 ```
 where `my_executable` is the the program that has generated `gen_XX` and XX the generation number to look at.
 
-## Deploy on GoogleCloud
+## Deploy on GoogleCloud (GC)
 
 Links :
 
 * [Quick Start](https://cloud.google.com/cloud-build/docs/quickstart-docker)
 * [Deploying](https://cloud.google.com/compute/docs/containers/deploying-containers<Paste>)
+
+Building the image and submitting it to the GC registry requires a compilation time over 10 minutes which exceeds the maximum timeout.
+So, the experiment's compilation has been removed from the Dockerfile and need to be run when first starting the docker :
+
+```BASH
+cd ~/git/sferes2/ && ./waf configure --exp=modular_QD --cpp14=yes && ./waf build --exp=modular_QD 
+```

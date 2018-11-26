@@ -65,6 +65,15 @@ def configure(conf):
     conf.check_hexapod_robdyn_simu()
 
 
+def write_run_all_sh(name, variants, path="build/exp/modular_QD/"):
+    file = open(path + "run_all_" + name + ".sh","w") 
+     
+    file.write("#!/bin/sh\n")
+    for variant in variants:
+        file.write("./" + path + name + "_" + variant.lower().replace(" ","_") + "\n") 
+    file.close()
+
+
 def build(bld):
 
     print ("Entering directory `" + os.getcwd() + "/modules/'")
@@ -95,6 +104,8 @@ def build(bld):
                             target = 'scenario_arm',
                             variants = varts)
 
+    write_run_all_sh("scenario_arm", varts)
+
     # ===== COLLECTBALL =====
     collect_varts = [
             'ARCHIVE RANDOM','ARCHIVE NOSELECTION',
@@ -111,3 +122,4 @@ def build(bld):
             cxxflags = bld.get_env()['CXXFLAGS'] + ['-Wno-unknown-pragmas'],
             variants = collect_varts)
 
+    write_run_all_sh("collect", collect_varts)
