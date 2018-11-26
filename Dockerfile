@@ -46,10 +46,3 @@ RUN cd ~/git/sferes2/exp/modular_QD/scenarii && git clone https://github.com/TBl
 RUN cd ~/git/sferes2/exp/modular_QD/scenarii && mv IAR-CollectBall-QD/ collectball/
 RUN cd ~/git/sferes2/exp/modular_QD/ && rm wscript && mv scenarii/collectball/modular_qd_wscript ./wscript
 RUN cd ~/git/sferes2/ && ./waf configure --exp=modular_QD --cpp14=yes && ./waf build --exp=modular_QD 
-
-# Installation et Configuration de Navigation QD
-RUN cd ~/git/sferes2/exp/modular_QD/scenarii && git clone https://github.com/TBlauwe/IAR-Navigation-QD.git
-RUN cd ~/git/sferes2/exp/modular_QD/scenarii && mv IAR-Navigation-QD/ navigation/
-RUN cd ~/git/sferes2/ && ./waf configure --exp=modular_QD --cpp14=yes && ./waf build --exp=modular_QD 
-
-
