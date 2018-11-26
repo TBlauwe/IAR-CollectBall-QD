@@ -79,7 +79,7 @@ def build(bld):
             'ARCHIVE POPFITNESS','ARCHIVE POPNOVELTY','ARCHIVE POPCURIOSITY',
             'ARCHIVE TOURFITNESS','ARCHIVE TOURNOVELTY','ARCHIVE TOURCURIOSITY']
 
-     sferes.create_variants(bld,
+    sferes.create_variants(bld,
                             source = 'scenarii/scenario_arm.cpp',
                             use = 'sferes2 robot',
                             includes='. .. ../../ ./scenarii/',
