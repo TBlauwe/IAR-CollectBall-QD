@@ -70,6 +70,14 @@ def build(bld):
     print ("Entering directory `" + os.getcwd() + "/modules/'")
 
     # ===== SCENARIO ARM =====
+    libs = 'HEXAPOD_ROBDYN_SIMU HEXAPOD_CONTROLLER ROBDYN ODE  EIGEN BOOST BOOST_UNIT_TEST_FRAMEWORK  BOOST_TIMER TBB '
+
+    bld.program(features='cxx cxxstlib',
+                 source='scenarii/arm_hori.cpp',
+                 includes='. .. ../../',
+                 target='robot',
+                 uselib=libs)
+
     varts=['GRID RANDOM','GRID NOSELECTION', 'GRID PARETO',
             'GRID FITNESS', 'GRID NOVELTY', 'GRID CURIOSITY',
             'GRID POPFITNESS', 'GRID POPNOVELTY', 'GRID POPCURIOSITY',
