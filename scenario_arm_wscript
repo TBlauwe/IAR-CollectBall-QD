@@ -72,7 +72,7 @@ def make_executable(path):
     os.chmod(path, mode)
 
 
-def write_run_all_sh(name, variants, path=os.path.abspath(os.getcwd() + "/build/exp/modular_QD")):
+def write_run_all_sh(name, variants, path=os.getcwd()):
 
     filename = path + "/run_all_" + name + ".sh"
 
