@@ -81,7 +81,7 @@ def write_run_all_sh(name, variants, path=os.getcwd()):
     with open(filename, "w") as f:
         f.write("#!/bin/sh\n")
         for variant in variants:
-            f.write("sh " + path + name + "_" + variant.lower().replace(" ","_") + "\n") 
+            f.write("sh " + path "/build/exp/modular_QD/" + name + "_" + variant.lower().replace(" ","_") + "\n") 
 
     make_executable(filename)
 
