@@ -49,4 +49,4 @@ RUN cd ~/git/sferes2/exp/modular_QD/ && rm wscript && cp scenarii/collectball/co
 # Volume pour contenir les résultats
 VOLUME ~/git/sferes2/build/exp/modular_QD/
 
-CMD cd ~/git/sferes2/ && ./waf configure --exp=modular_QD --cpp14=yes && ./waf build --exp=modular_QD && ./build/exp/modular_QD/run_all_collect.sh
+CMD cd ~/git/sferes2/ && ./waf configure --exp=modular_QD --cpp14=yes && ./waf build --exp=modular_QD && ./run_all_collect.sh
