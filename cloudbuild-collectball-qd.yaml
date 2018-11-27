@@ -1,7 +1,7 @@
 steps:
     - name: 'gcr.io/cloud-builders/docker'
       args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/collectball-qd-image', './Dockerfile_CollectBall_QD']
-      timeout: '10m0s'
+      timeout: '1200s'
       volumes:
         - name: 'results'
           path: '~/git/sferes2/results'
