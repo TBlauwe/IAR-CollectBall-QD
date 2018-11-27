@@ -4,7 +4,7 @@ steps:
       timeout: '600s'
       volumes:
         - name: 'results'
-          path: '~/git/sferes2/results'
+          path: '/root/git/sferes2/build/exp/modular_QD/'
 
 images:
     - 'gcr.io/$PROJECT_ID/scenario-arm-image'

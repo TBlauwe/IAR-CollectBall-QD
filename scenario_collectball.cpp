@@ -72,7 +72,7 @@ int main(int argc, char **argv)
     auto const pos=path.find_last_of('/');
     const auto program_name=path.substr(pos+1);
 
-    ea.set_res_dir("results/" + program_name + "_" + misc::date());
+    ea.set_res_dir("build/exp/modular_QD/" + program_name + "_" + misc::date());
 
     std::cout <<"             path : "<< path <<std::endl;
 
