@@ -2,6 +2,9 @@ steps:
     - name: 'gcr.io/cloud-builders/docker'
       args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/scenario-arm-image', './Dockerfile_Scenario_Arm']
       timeout: '10m'
+      volumes:
+        - name: 'results'
+          path: '~/git/sferes2/results'
 
 images:
     - 'gcr.io/$PROJECT_ID/scenario-arm-image'
