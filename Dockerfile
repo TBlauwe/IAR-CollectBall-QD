@@ -45,4 +45,7 @@ RUN cd ~/git/sferes2/exp && git clone https://github.com/sferes2/modular_QD.git
 RUN cd ~/git/sferes2/exp/modular_QD/scenarii && git clone https://github.com/TBlauwe/IAR-CollectBall-QD.git
 RUN cd ~/git/sferes2/exp/modular_QD/scenarii && mv IAR-CollectBall-QD/ collectball/
 RUN cd ~/git/sferes2/exp/modular_QD/ && rm wscript && mv scenarii/collectball/modular_qd_wscript ./wscript
-#RUN cd ~/git/sferes2/ && ./waf configure --exp=modular_QD --cpp14=yes && ./waf build --exp=modular_QD 
+
+CMD cd ~/git/sferes2/ && ./waf configure --exp=modular_QD --cpp14=yes && ./waf build --exp=modular_QD 
+CMD cd ~/git/sferes2/ && ./build/exp/modular_QD/run_all_collect.sh
+CMD cd ~/git/sferes2/ && ./build/exp/modular_QD/run_all_scenario_arm.sh
