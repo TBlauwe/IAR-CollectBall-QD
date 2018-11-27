@@ -67,6 +67,15 @@ int main(int argc, char **argv)
     typedef ea::QualityDiversity<phen_t, eval_t, stat_t, modifier_t, select_t, container_t, Params> ea_t;
     ea_t ea;
 
+    // Building result's dir
+    const std::string path(argv[0]);
+    auto const pos=path.find_last_of('/');
+    const auto program_name=path.substr(pos+1);
+
+    ea.set_res_dir("results/" + program_name + "_" + misc::date());
+
+    std::cout <<"             path : "<< path <<std::endl;
+
     try {
         custom_run_ea(argc, argv, ea, fit_t());
     }

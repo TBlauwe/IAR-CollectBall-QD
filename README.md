@@ -27,6 +27,7 @@ If you wish to maintain your wscript, just copy-paste the relevant lines instead
 cd [...]/sferes2/exp/modular_QD/scenarii && git clone https://github.com/TBlauwe/IAR-CollectBall-QD.git
 cd [...]/sferes2/exp/modular_QD/scenarii && mv IAR-CollectBall-QD/ collectball/
 cd [...]/sferes2/exp/modular_QD/ && rm wscript && mv scenarii/collectball/modular_qd_wscript ./wscript
+mkdir [...]/sferes2/results
 ```
 
 ### Compilation : CollectaBall QD

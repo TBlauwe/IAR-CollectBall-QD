@@ -140,9 +140,10 @@ namespace sferes {
             // command-line options
             namespace po = boost::program_options;
 
-            std::cout << " ========== Starting ========== " << std::endl << std::endl;
+            std::cout << " ========== Starting ========== " << std::endl<< std::endl;
 
-            std::cout <<"sferes2 version : "<<VERSION<<std::endl;
+            std::cout <<"sferes2 version   : "<<VERSION<<std::endl;
+            std::cout <<"results directory : "<< ea.res_dir() <<std::endl;
 
             if (init_rand) {
                 time_t t = time(0) + ::getpid();
