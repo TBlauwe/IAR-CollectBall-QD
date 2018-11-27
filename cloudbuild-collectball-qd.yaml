@@ -9,8 +9,4 @@ steps:
 images:
     - 'gcr.io/$PROJECT_ID/collectball-qd-image'
 
-volumes:
-    - name: 'results'
-      path: '~/git/sferes2/results'
-
 timeout: '20m'
