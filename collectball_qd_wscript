@@ -80,7 +80,6 @@ def write_run_all_sh(name, variants, path=os.getcwd()):
 
     with open(filename, "w") as f:
         f.write("#!/bin/sh\n")
-        f.write("cd " + path + "/build/exp/modular_QD/")
         for variant in variants:
             f.write("cd " + path + "/build/exp/modular_QD/ && " + "./" + name + "_" + variant.lower().replace(" ","_") + "\n") 
 
