@@ -61,3 +61,34 @@ So, the experiment's compilation has been removed from the Dockerfile and need t
 ```BASH
 cd ~/git/sferes2/ && ./waf configure --exp=modular_QD --cpp14=yes && ./waf build --exp=modular_QD 
 ```
+
+## Récupérer les données d'un docker sur une VM :
+
+Se connecter en SSH via la console de l'ordinateur (pas depuis l'interface web)
+
+```BASH
+gcloud compute --project "iar-collectball" ssh --zone "us-east1-b" "collectball-qd-1"
+
+or
+
+gcloud compute ssh [INSTANCE_NAME]
+```
+
+### Trouver où se trouve le volume
+
+```BASH
+docker volume ls // Donne le nom du volume
+docker inspect [nom_du_volume]
+```
+
+Copier les fichiers dans le HOME (attention si vous avez des grosses données, il faudra faire attention à l'espace disque de la VM)
+
+```BASH
+sudo cp -r /var/lib/docker/volumes/[Nom_Du_Volume]/[...]/   [Un endroit où vous avez les droits depuis un scp, comme le home]
+```
+
+Ensuite en local :
+
+```BASH
+gcloud compute scp --recurse [login]@[instance-vm]:[le dossier où se trouve les données]
+```

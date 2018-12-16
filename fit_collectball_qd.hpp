@@ -129,7 +129,7 @@ namespace sferes
 
                     // Ball Objective 
                     this->_objs[ballcount] = nb_collected/(1.0*nbinst*nb_balls); 
-                    this->_value =this->_objs[0]; 
+                    this->_value = nb_collected/(1.0*nbinst*nb_balls); 
 
                     struct point_traj last = _trajectory.back();
                     std::vector<float> data = {(float) (last.x), (float) (last.y)};
