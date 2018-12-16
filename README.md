@@ -55,11 +55,10 @@ Links :
 * [Quick Start](https://cloud.google.com/cloud-build/docs/quickstart-docker)
 * [Deploying](https://cloud.google.com/compute/docs/containers/deploying-containers<Paste>)
 
-Building the image and submitting it to the GC registry requires a compilation time over 10 minutes which exceeds the maximum timeout.
-So, the experiment's compilation has been removed from the Dockerfile and need to be run when first starting the docker :
+_Note : Building the image and submitting it to the GC registry requires a compilation time over 10 minutes which exceeds the maximum timeout, so it has been added in the CMD line_
 
 ```BASH
-cd ~/git/sferes2/ && ./waf configure --exp=modular_QD --cpp14=yes && ./waf build --exp=modular_QD 
+gcloud builds submit --config cloudbuild-collectball-qd.yaml
 ```
 
 ## Récupérer les données d'un docker sur une VM :
