@@ -73,7 +73,9 @@ or
 gcloud compute ssh [INSTANCE_NAME]
 ```
 
-### Trouver où se trouve le volume
+__*Note: Gardez le login et l'hôte (login@hote) en mémoire, nous en aurons besoin pour copier les données*__
+
+### Trouver le volume où sont stockés les résultats des expériences
 
 ```BASH
 docker volume ls // Donne le nom du volume
@@ -86,7 +88,9 @@ Copier les fichiers dans le HOME (attention si vous avez des grosses données, i
 sudo cp -r /var/lib/docker/volumes/[Nom_Du_Volume]/[...]/   [Un endroit où vous avez les droits depuis un scp, comme le home]
 ```
 
-Ensuite en local :
+### Téléchargement des données
+
+En local :
 
 ```BASH
 gcloud compute scp --recurse [login]@[instance-vm]:[le dossier où se trouve les données]
